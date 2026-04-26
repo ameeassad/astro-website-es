@@ -1,0 +1,2 @@
+# Visitors arriving via the .es domain are proxied to the Spanish subfolder
+https://fincamatriz.es/* https://fincamatriz.com/es/:splat 301!
