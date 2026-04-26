@@ -60,34 +60,117 @@ const spaceSlides: string[][] = [
   </div>
 </section>
 
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lb-close" aria-label="Close">&#x2715;</button>
+  <button id="lb-prev" aria-label="Previous photo">&#8249;</button>
+  <button id="lb-next" aria-label="Next photo">&#8250;</button>
+  <div id="lb-img-wrap">
+    <img id="lb-img" src="" alt="" />
+  </div>
+  <div id="lb-dots"></div>
+</div>
+
 <script>
+  // ── Card slideshows ──
   document.querySelectorAll<HTMLElement>('.space-card').forEach(card => {
     const imgs = card.querySelectorAll<HTMLImageElement>('.space-img');
     const dots = card.querySelectorAll<HTMLElement>('.slide-dot');
-    if (imgs.length <= 1) return;
 
     let current = 0;
 
     function goTo(n: number) {
-      imgs[current].classList.remove('active');
-      dots[current].classList.remove('active');
+      if (imgs.length > 1) {
+        imgs[current].classList.remove('active');
+        dots[current]?.classList.remove('active');
+      }
       current = (n + imgs.length) % imgs.length;
-      imgs[current].classList.add('active');
-      dots[current].classList.add('active');
+      if (imgs.length > 1) {
+        imgs[current].classList.add('active');
+        dots[current]?.classList.add('active');
+      }
     }
 
-    card.querySelector('.slide-next')?.addEventListener('click', e => {
-      e.stopPropagation();
-      goTo(current + 1);
-    });
-    card.querySelector('.slide-prev')?.addEventListener('click', e => {
-      e.stopPropagation();
-      goTo(current - 1);
-    });
+    if (imgs.length > 1) {
+      card.querySelector('.slide-next')?.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+      card.querySelector('.slide-prev')?.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      dots.forEach((dot, i) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
+    }
 
-    dots.forEach((dot, i) => dot.addEventListener('click', e => {
-      e.stopPropagation();
-      goTo(i);
-    }));
+    // Open lightbox on card click (not on slide buttons)
+    card.addEventListener('click', e => {
+      const target = e.target as HTMLElement;
+      if (target.closest('.slide-btn') || target.closest('.slide-dot')) return;
+      const srcs = Array.from(imgs).map(img => img.src);
+      openLightbox(srcs, current);
+    });
+  });
+
+  // ── Lightbox ──
+  const lb        = document.getElementById('lightbox')!;
+  const lbImg     = document.getElementById('lb-img') as HTMLImageElement;
+  const lbDots    = document.getElementById('lb-dots')!;
+  const lbClose   = document.getElementById('lb-close')!;
+  const lbPrev    = document.getElementById('lb-prev')!;
+  const lbNext    = document.getElementById('lb-next')!;
+
+  let lbSrcs: string[] = [];
+  let lbIdx = 0;
+
+  function renderDots() {
+    lbDots.innerHTML = '';
+    if (lbSrcs.length <= 1) return;
+    lbSrcs.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'lb-dot' + (i === lbIdx ? ' active' : '');
+      d.addEventListener('click', () => lbGoTo(i));
+      lbDots.appendChild(d);
+    });
+  }
+
+  function lbGoTo(n: number) {
+    lbIdx = (n + lbSrcs.length) % lbSrcs.length;
+    lbImg.src = lbSrcs[lbIdx];
+    lbDots.querySelectorAll('.lb-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === lbIdx)
+    );
+    lbPrev.style.display = lbNext.style.display = lbSrcs.length > 1 ? '' : 'none';
+  }
+
+  function openLightbox(srcs: string[], startIdx: number) {
+    lbSrcs = srcs;
+    lbIdx = startIdx;
+    lbImg.src = srcs[startIdx];
+    lbImg.alt = '';
+    renderDots();
+    lbPrev.style.display = lbNext.style.display = srcs.length > 1 ? '' : 'none';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => lbGoTo(lbIdx - 1));
+  lbNext.addEventListener('click', () => lbGoTo(lbIdx + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lbGoTo(lbIdx + 1);
+    if (e.key === 'ArrowLeft')  lbGoTo(lbIdx - 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) dx < 0 ? lbGoTo(lbIdx + 1) : lbGoTo(lbIdx - 1);
   });
 </script>
