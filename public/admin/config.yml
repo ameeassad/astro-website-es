@@ -41,8 +41,7 @@ collections:
         fields:
           - { label: Phone, name: phone, widget: string, default: '+34 000 000 000' }
           - { label: WhatsApp Number (digits only), name: whatsapp, widget: string, default: '34000000000' }
-          - { label: Email, name: email, widget: string, default: 'hola@fincamatriz.com' }
-          - { label: Instagram URL, name: instagram, widget: string, default: 'https://instagram.com/fincamatriz' }
+          - { label: Email, name: email, widget: string, default: 'fincamatriz.es@gmail.com' }
           - label: Rates
             name: rates
             widget: list
