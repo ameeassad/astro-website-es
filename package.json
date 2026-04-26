@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "node node_modules/astro/dist/cli/index.js build",
+    "build": "astro build",
     "preview": "astro preview"
   },
   "dependencies": {
