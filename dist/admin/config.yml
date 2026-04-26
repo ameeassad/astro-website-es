@@ -1,0 +1,107 @@
+# Decap CMS Configuration for Finca Matriz
+#
+# SETUP INSTRUCTIONS:
+# 1. Push your project to a GitHub repository
+# 2. Create a GitHub OAuth App:
+#    - GitHub Settings → Developer Settings → OAuth Apps → New OAuth App
+#    - Homepage URL: https://yourdomain.com
+#    - Authorization callback URL: https://api.netlify.com/auth/done
+#    (or use Netlify Identity if hosting on Netlify — no OAuth app needed)
+# 3. Update `repo` below to your GitHub username/repo
+# 4. Update `site_url` and `display_url` to your domain
+#
+# ALTERNATIVE: If self-hosting with Gitea, change backend to:
+#   name: gitea
+#   repo: your-username/finca-matriz
+#   base_url: https://your-gitea-instance.com
+
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/finca-matriz  # ← change this
+  branch: main
+
+# Media uploads go into public/images
+media_folder: public/images
+public_folder: /images
+
+site_url: https://fincamatriz.com       # ← change to your domain
+display_url: https://fincamatriz.com    # ← change to your domain
+
+# Locale
+locale: en
+
+collections:
+  # ── Site settings (general info that appears across pages) ──────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General
+        file: src/content/settings/general.json
+        fields:
+          - { label: Phone, name: phone, widget: string, default: '+34 000 000 000' }
+          - { label: WhatsApp Number (digits only), name: whatsapp, widget: string, default: '34000000000' }
+          - { label: Email, name: email, widget: string, default: 'hola@fincamatriz.com' }
+          - { label: Instagram URL, name: instagram, widget: string, default: 'https://instagram.com/fincamatriz' }
+          - label: Rates
+            name: rates
+            widget: list
+            fields:
+              - { label: Label (EN), name: label_en, widget: string }
+              - { label: Value (EN), name: value_en, widget: string }
+              - { label: Label (ES), name: label_es, widget: string }
+              - { label: Value (ES), name: value_es, widget: string }
+              - { label: Label (CA), name: label_ca, widget: string }
+              - { label: Value (CA), name: value_ca, widget: string }
+
+  # ── Gallery images ──────────────────────────────────────────────────────
+  - name: gallery
+    label: Photo Gallery
+    folder: src/content/gallery
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Image, name: image, widget: image }
+      - { label: Alt text (EN), name: alt_en, widget: string }
+      - { label: Alt text (ES), name: alt_es, widget: string }
+      - { label: Alt text (CA), name: alt_ca, widget: string }
+      - label: Section
+        name: section
+        widget: select
+        options: [about, spaces, events, stay]
+
+  # ── FAQ entries ─────────────────────────────────────────────────────────
+  - name: faq
+    label: FAQ
+    folder: src/content/faq
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: Question (EN), name: question_en, widget: string }
+      - { label: Answer (EN), name: answer_en, widget: text }
+      - { label: Question (ES), name: question_es, widget: string }
+      - { label: Answer (ES), name: answer_es, widget: text }
+      - { label: Question (CA), name: question_ca, widget: string }
+      - { label: Answer (CA), name: answer_ca, widget: text }
+      - { label: Sort Order, name: order, widget: number, default: 0 }
+
+  # ── Spaces / Rooms ──────────────────────────────────────────────────────
+  - name: spaces
+    label: Spaces & Rooms
+    folder: src/content/spaces
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: Name (EN), name: name_en, widget: string }
+      - { label: Description (EN), name: desc_en, widget: string }
+      - { label: Name (ES), name: name_es, widget: string }
+      - { label: Description (ES), name: desc_es, widget: string }
+      - { label: Name (CA), name: name_ca, widget: string }
+      - { label: Description (CA), name: desc_ca, widget: string }
+      - { label: Photo, name: image, widget: image }
+      - { label: Sort Order, name: order, widget: number, default: 0 }
+      - label: Featured (large card)
+        name: featured
+        widget: boolean
+        default: false

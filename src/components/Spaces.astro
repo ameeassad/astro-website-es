@@ -1,0 +1,37 @@
+---
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="section" id="spaces" style="padding-bottom:80px">
+  <div class="section-inner">
+    <p class="section-label reveal">{t.spacesLabel}</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">
+      {t.spacesTitle[0]}<em>{t.spacesTitle[1]}</em>
+    </h2>
+  </div>
+  <div class="section-inner">
+    <div class="spaces-grid reveal" style="transition-delay:0.2s">
+      {t.spaces.map((sp, i) => (
+        <div class="space-card">
+          <!--
+            Replace .placeholder with real <img> once photos are ready:
+            <img src={`/images/space-${i}.jpg`} alt={sp.name} class="space-img" loading="lazy" />
+          -->
+          <div class={`space-img placeholder`}>
+            {t.spacesPlaceholders[i]}
+          </div>
+          <div class="space-overlay">
+            <div class="space-name">{sp.name}</div>
+            <div class="space-desc">{sp.desc}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

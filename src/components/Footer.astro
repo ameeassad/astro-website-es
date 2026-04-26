@@ -1,0 +1,53 @@
+---
+import Pine from './Pine.astro';
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+const anchors = ['about', 'spaces', 'events', 'stay', 'contact'];
+const pineSizes = [100, 70, 120, 85, 110, 75, 130, 90, 105, 68, 115];
+---
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-pine">
+      {pineSizes.map(h => (
+        <Pine height={h} color="var(--white)" opacity={1} />
+      ))}
+    </div>
+
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Finca <span>Matriz</span></div>
+        <div class="footer-tagline">{t.footerTagline}</div>
+      </div>
+
+      <ul class="footer-nav">
+        {t.footerNav.map((label, i) => (
+          <li>
+            <a href={`#${anchors[i]}`}>{label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="footer-social">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href={`https://wa.me/${t.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href={`mailto:${t.email}`}>{t.email}</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>{t.copyright}</span>
+      <div style="display:flex; gap:24px">
+        {t.legal.map(label => (
+          <a href="#">{label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

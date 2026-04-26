@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+}
+
+const { lang, title = 'Finca Matriz', description = 'A historic Mediterranean estate nestled at the base of the mountain Montgó near Jávea — for weddings, private events, cycling groups, and vacation rentals.' } = Astro.props;
+
+const langAlternates = ['en', 'es', 'ca'] as const;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Canonical + hreflang -->
+    {langAlternates.map(l => (
+      <link rel="alternate" hreflang={l} href={`/${l}/`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href="/en/" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Scroll reveal -->
+    <script>
+      const obs = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+  </body>
+</html>

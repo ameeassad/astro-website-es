@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav';
+import Hero from '../../components/Hero.astro';
+import Strip from '../../components/Strip.astro';
+import About from '../../components/About.astro';
+import Spaces from '../../components/Spaces.astro';
+import Events from '../../components/Events.astro';
+import Stay from '../../components/Stay.astro';
+import FAQ from '../../components/FAQ';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsApp from '../../components/WhatsApp.astro';
+import { T } from '../../i18n/translations';
+
+const lang = 'ca';
+const t = T[lang];
+---
+
+<Base lang={lang} title="Finca Matriz — Finca Mediterrània, Xàbia">
+  <Nav lang={lang} t={t} client:load />
+  <Hero t={t} />
+  <Strip t={t} />
+  <About t={t} />
+  <Spaces t={t} />
+  <Events t={t} />
+  <Stay t={t} lang={lang} />
+  <FAQ t={t} client:visible />
+  <Contact t={t} />
+  <Footer t={t} />
+  <WhatsApp number={t.whatsapp} />
+</Base>

@@ -1,0 +1,69 @@
+---
+import AvailabilityCalendar from './AvailabilityCalendar';
+import type { Translations, Lang } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+  lang: Lang;
+}
+
+const { t, lang } = Astro.props;
+---
+
+<section class="section" id="stay">
+  <div class="section-inner">
+    <p class="section-label reveal">{t.stayLabel}</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">
+      {t.stayTitle[0]}<em>{t.stayTitle[1]}</em>
+    </h2>
+
+    <div class="stay-layout reveal" style="transition-delay:0.2s">
+      <div>
+        <p class="section-body">{t.stayBody}</p>
+        <p style="margin-top:14px; font-size:13px; letter-spacing:0.05em; color:var(--light); line-height:1.9">
+          {t.stayBody2}
+        </p>
+        <table class="rates-table">
+          <tbody>
+            {t.rateRows.map(([label, val]) => (
+              <tr>
+                <td>{label}</td>
+                <td>{val}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="booking-cta">
+          <h3>{t.bookingTitle}</h3>
+          <p>{t.bookingBody}</p>
+          <!--
+            LODGIFY WIDGET: Once you have your Lodgify property ID, you can either:
+
+            Option A — Use Lodgify's own embedded widget (easiest):
+            Replace this booking-cta div with:
+            <div id="lodgify-booking-widget"></div>
+            <script src="https://app.lodgify.com/scripts/external-widget.js"
+              data-property-id="YOUR_PROPERTY_ID"
+              data-currency="EUR"
+              data-language={lang}
+              async></script>
+
+            Option B — Keep our custom calendar below (current) and update
+            the LODGIFY_PROPERTY_ID in AvailabilityCalendar.tsx.
+          -->
+          <a href={`https://app.lodgify.com/`} target="_blank" rel="noopener noreferrer" class="btn-accent">
+            {t.bookingBtn}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive availability calendar -->
+    <div class="reveal" style="transition-delay:0.3s; margin-top:40px">
+      <AvailabilityCalendar lang={lang} client:visible />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import Pine from './Pine.astro';
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="hero">
+  <!--
+    VIDEO HERO: When you have drone footage, replace the .hero-bg div with:
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="/video/hero.mp4" type="video/mp4" />
+    </video>
+    Then remove the .hero-bg div below.
+  -->
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Pine silhouettes framing the hero -->
+  <div class="hero-pines">
+    <div class="pine-hero-group">
+      <Pine height={320} color="rgba(250,248,245,0.18)" sway={true} />
+      <Pine height={240} color="rgba(250,248,245,0.12)" sway={true} />
+    </div>
+    <div class="pine-hero-group">
+      <Pine height={260} color="rgba(250,248,245,0.12)" sway={true} />
+      <Pine height={340} color="rgba(250,248,245,0.18)" sway={true} />
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">{t.eyebrow}</p>
+    <h1 class="hero-title">
+      {t.heroTitle[0]}<br />
+      <em>{t.heroTitle[1]}</em>
+    </h1>
+    <p class="hero-sub">{t.heroSub}</p>
+    <div class="hero-btns">
+      <a href="#stay" class="btn-primary">{t.heroBook}</a>
+      <a href="#contact" class="btn-outline">{t.heroInquire}</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</section>

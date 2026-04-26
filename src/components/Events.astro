@@ -1,0 +1,61 @@
+---
+import Pine from './Pine.astro';
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+const pineSizes = [80, 110, 75, 95, 130, 85, 105, 70, 120, 90, 100];
+---
+
+<section class="section" id="events">
+  <div class="section-inner">
+    <p class="section-label reveal">{t.eventsLabel}</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">
+      {t.eventsTitle[0]}<em>{t.eventsTitle[1]}</em>
+    </h2>
+    <p class="section-body reveal" style="margin-top:20px; transition-delay:0.15s">
+      {t.eventsSub}
+    </p>
+
+    <div class="events-grid reveal" style="transition-delay:0.25s">
+      {t.events.map((ev, i) => (
+        <div class="event-card">
+          <svg class="event-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+            {i === 0 && (
+              <>
+                <path d="M6 28 Q18 8 30 28"/>
+                <path d="M10 22 Q18 10 26 22"/>
+                <line x1="18" y1="28" x2="18" y2="32"/>
+              </>
+            )}
+            {i === 1 && (
+              <>
+                <rect x="6" y="10" width="24" height="18" rx="0.5"/>
+                <path d="M6 15 h24 M14 10 v-3 M22 10 v-3"/>
+              </>
+            )}
+            {i === 2 && (
+              <>
+                <circle cx="18" cy="18" r="10"/>
+                <path d="M18 8 Q22 14 18 18 Q14 22 18 28"/>
+                <path d="M8 18 Q14 14 18 18 Q22 22 28 18"/>
+              </>
+            )}
+          </svg>
+          <div class="event-type">{ev.name}</div>
+          <p class="event-text">{ev.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="events-pine-row">
+      {pineSizes.map((h, i) => (
+        <Pine height={h} color="var(--white)" opacity={1} />
+      ))}
+    </div>
+  </div>
+</section>

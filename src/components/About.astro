@@ -1,0 +1,39 @@
+---
+import PineSmall from './PineSmall.astro';
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="layout">
+      <div class="text-col reveal">
+        <p class="section-label">{t.aboutLabel}</p>
+        <h2 class="section-title">
+          {t.aboutTitle[0]}<em>{t.aboutTitle[1]}</em>
+        </h2>
+        <p class="section-body" style="margin-top:24px">{t.aboutBody}</p>
+        <p class="section-body" style="margin-top:16px">{t.aboutBody2}</p>
+        <div class="pine-divider">
+          <PineSmall height={72} color="var(--accent)" opacity={0.6} />
+          <PineSmall height={56} color="var(--accent)" opacity={0.4} />
+          <PineSmall height={64} color="var(--accent)" opacity={0.5} />
+        </div>
+      </div>
+      <div class="img-col reveal" style="transition-delay:0.15s">
+        <!--
+          Replace .placeholder divs with real <img> tags once photos are ready:
+          <img src="/images/aerial-main.jpg" alt="Aerial view of the main house and courtyard" class="about-img-main" loading="lazy" />
+          <img src="/images/stone-archway.jpg" alt="Stone archway detail" class="about-img-accent" loading="lazy" />
+        -->
+        <div class="about-img-main placeholder">aerial · the main house and courtyard</div>
+        <div class="about-img-accent placeholder">detail · stone archway</div>
+      </div>
+    </div>
+  </div>
+</section>
