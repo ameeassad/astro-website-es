@@ -12,7 +12,7 @@ export const T = {
     s1vals: ['300', '2', '7', '12 mo'],
     aboutLabel: 'The Property',
     aboutTitle: ['A place apart, ', 'rooted in history'],
-    aboutBody: 'Finca Matriz sits within a landscape of ancient pines and dry-stone walls, far from the noise. The estate has been restored in 2025 and continues to honour its Valencian heritage while welcoming guests and gatherings of all kinds — intimate or grand, quiet or celebratory.',
+    aboutBody: 'Finca Matriz sits within a landscape of ancient pines and dry-stone arches, far from the noise. The estate has been restored in 2025 and continues to honour its Valencian heritage while welcoming guests and gatherings of all kinds — intimate or grand, quiet or celebratory.',
     aboutBody2: 'The property spans over two hectares of Mediterranean forest, a terrace overlooking the gardens, and a private pine forest — all framed by the warm stone of the original farmhouse.',
     spacesLabel: 'Spaces & Rooms',
     spacesTitle: ['Every corner, ', 'considered'],
