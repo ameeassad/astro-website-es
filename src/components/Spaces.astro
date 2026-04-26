@@ -7,13 +7,12 @@ interface Props {
 
 const { t } = Astro.props;
 
-const spaceImages = [
-  '/uploads/courtyard-night.png',
-  '/uploads/gardens.png',
-  '/uploads/room1a.png',
-  null,
-  '/uploads/tennis.png',
-  '/uploads/terrace.png',
+const spaceSlides: string[][] = [
+  ['/uploads/courtyard-night.png', '/uploads/courtyard-day.png', '/uploads/courtyard-aerial.png', '/uploads/pool-day.png', '/uploads/courtyard-dining.png'],
+  ['/uploads/garden-day.png', '/uploads/yoga.png'],
+  ['/uploads/room1a.png', '/uploads/room1b.png', '/uploads/room1c.png', '/uploads/room-living-1c.png', '/uploads/roomup.png', '/uploads/bathroom1a.png', '/uploads/bathroom-pine.png', '/uploads/room-pine.png'],
+  ['/uploads/tennis.png'],
+  ['/uploads/terrace.png'],
 ];
 ---
 
@@ -27,11 +26,30 @@ const spaceImages = [
   <div class="section-inner">
     <div class="spaces-grid reveal" style="transition-delay:0.2s">
       {t.spaces.map((sp, i) => (
-        <div class="space-card">
-          {spaceImages[i]
-            ? <img src={spaceImages[i]} alt={sp.name} class="space-img" loading="lazy" />
-            : <div class="space-img placeholder">{t.spacesPlaceholders[i]}</div>
-          }
+        <div class="space-card" data-slides={spaceSlides[i].length}>
+          <div class="space-slides">
+            {spaceSlides[i].map((src, j) => (
+              <img
+                src={src}
+                alt={sp.name}
+                class={`space-img${j === 0 ? ' active' : ''}`}
+                loading={j === 0 ? 'eager' : 'lazy'}
+              />
+            ))}
+          </div>
+
+          {spaceSlides[i].length > 1 && (
+            <>
+              <button class="slide-btn slide-prev" aria-label="Previous photo">&#8249;</button>
+              <button class="slide-btn slide-next" aria-label="Next photo">&#8250;</button>
+              <div class="slide-dots">
+                {spaceSlides[i].map((_, j) => (
+                  <span class={`slide-dot${j === 0 ? ' active' : ''}`} />
+                ))}
+              </div>
+            </>
+          )}
+
           <div class="space-overlay">
             <div class="space-name">{sp.name}</div>
             <div class="space-desc">{sp.desc}</div>
@@ -41,3 +59,35 @@ const spaceImages = [
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.space-card').forEach(card => {
+    const imgs = card.querySelectorAll<HTMLImageElement>('.space-img');
+    const dots = card.querySelectorAll<HTMLElement>('.slide-dot');
+    if (imgs.length <= 1) return;
+
+    let current = 0;
+
+    function goTo(n: number) {
+      imgs[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + imgs.length) % imgs.length;
+      imgs[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    card.querySelector('.slide-next')?.addEventListener('click', e => {
+      e.stopPropagation();
+      goTo(current + 1);
+    });
+    card.querySelector('.slide-prev')?.addEventListener('click', e => {
+      e.stopPropagation();
+      goTo(current - 1);
+    });
+
+    dots.forEach((dot, i) => dot.addEventListener('click', e => {
+      e.stopPropagation();
+      goTo(i);
+    }));
+  });
+</script>
