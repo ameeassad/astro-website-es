@@ -22,6 +22,7 @@ export const T = {
       { name: 'The Suites', desc: 'Seven master suites · all with private bathrooms' },
       { name: 'Sa Porquera', desc: 'Historic finca area with three constructions · provides shade' },
       { name: 'Tennis Court', desc: 'Full size · floodlit · surrounded by pines and mountain view' },
+      { name: 'The Terrace', desc: 'Stone-paved · shaded dining · views over the valley' },
     ],
     spacesPlaceholders: [
       'drone · u-shaped house and central courtyard pool from above',
@@ -29,6 +30,7 @@ export const T = {
       'photo · one of the seven master suites',
       'photo · sa porquera restored event space interior',
       'photo · tennis court surrounded by pine trees',
+      'photo · stone terrace with valley views',
     ],
     eventsLabel: 'Celebrations',
     eventsTitle: ['Unforgettable ', 'events'],
@@ -105,6 +107,7 @@ export const T = {
       { name: 'Las Suites', desc: 'Siete suites · todas con baño privado' },
       { name: 'Sa Porquera', desc: 'Antiguas cuadras restauradas · espacio de eventos · 80 personas' },
       { name: 'Pista de Tenis', desc: 'Tamaño completo · iluminada · entre pinos' },
+      { name: 'La Terraza', desc: 'Pavimento de piedra · comedor sombreado · vistas al valle' },
     ],
     spacesPlaceholders: [
       'drone · casa en U y piscina central desde arriba',
@@ -112,6 +115,7 @@ export const T = {
       'foto · una de las siete suites',
       'foto · interior de sa porquera restaurada',
       'foto · pista de tenis entre pinos',
+      'foto · terraza de piedra con vistas al valle',
     ],
     eventsLabel: 'Celebraciones',
     eventsTitle: ['Eventos ', 'inolvidables'],
@@ -188,6 +192,7 @@ export const T = {
       { name: 'Les Suites', desc: 'Set suites · totes amb bany privat' },
       { name: 'Sa Porquera', desc: "Antic estable restaurat · espai d'esdeveniments · 80 persones" },
       { name: 'Pista de Tennis', desc: 'Mida completa · il·luminada · entre pins' },
+      { name: 'La Terrassa', desc: 'Enrajolada de pedra · menjador amb ombra · vistes a la vall' },
     ],
     spacesPlaceholders: [
       'drone · casa en U i piscina central des de dalt',
@@ -195,6 +200,7 @@ export const T = {
       'foto · una de les set suites',
       'foto · interior de sa porquera restaurada',
       'foto · pista de tennis entre pins',
+      'foto · terrassa de pedra amb vistes a la vall',
     ],
     eventsLabel: 'Celebracions',
     eventsTitle: ['Esdeveniments ', 'inoblidables'],

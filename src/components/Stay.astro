@@ -39,24 +39,61 @@ const { t, lang } = Astro.props;
         <div class="booking-cta">
           <h3>{t.bookingTitle}</h3>
           <p>{t.bookingBody}</p>
-          <!--
-            LODGIFY WIDGET: Once you have your Lodgify property ID, you can either:
-
-            Option A — Use Lodgify's own embedded widget (easiest):
-            Replace this booking-cta div with:
-            <div id="lodgify-booking-widget"></div>
-            <script src="https://app.lodgify.com/scripts/external-widget.js"
-              data-property-id="YOUR_PROPERTY_ID"
-              data-currency="EUR"
-              data-language={lang}
-              async></script>
-
-            Option B — Keep our custom calendar below (current) and update
-            the LODGIFY_PROPERTY_ID in AvailabilityCalendar.tsx.
-          -->
-          <a href={`https://app.lodgify.com/`} target="_blank" rel="noopener noreferrer" class="btn-accent">
-            {t.bookingBtn}
-          </a>
+          <style>
+            :root {
+              --ldg-bnb-background: #ffffff;
+              --ldg-bnb-border-radius: 0.42em;
+              --ldg-bnb-box-shadow: 0px 24px 54px 0px rgba(0, 0, 0, 0.1);
+              --ldg-bnb-padding: 14px;
+              --ldg-bnb-input-background: #ffffff;
+              --ldg-bnb-button-border-radius: 0px;
+              --ldg-bnb-color-primary: #9b6b4a;
+              --ldg-bnb-color-primary-lighter: #cdb5a5;
+              --ldg-bnb-color-primary-darker: #4e3625;
+              --ldg-bnb-color-primary-contrast: #faf8f5;
+              --ldg-component-calendar-cell-selection-bg-color: #9b6b4a;
+              --ldg-component-calendar-cell-selection-color: #faf8f5;
+              --ldg-component-calendar-cell-selected-bg-color: #cdb5a5;
+              --ldg-component-calendar-cell-selected-color: #faf8f5;
+              --ldg-bnb-font-family: inherit;
+            }
+            #lodgify-book-now-box { width: 100%; }
+          </style>
+          <div
+            id="lodgify-book-now-box"
+            data-rental-id="796184"
+            data-website-id="650777"
+            data-slug="elina-koujeleva"
+            data-language-code="en"
+            data-new-tab="true"
+            data-version="stable"
+            data-hide-minimum-price
+            data-has-guests-breakdown
+            data-check-in-label="Check-in"
+            data-check-out-label="Check-out"
+            data-guests-label="Guests"
+            data-guests-singular-label="{{NumberOfGuests}} guest"
+            data-guests-plural-label="{{NumberOfGuests}} guests"
+            data-location-input-label="Location"
+            data-total-price-label="Total price:"
+            data-select-dates-to-see-price-label="Select dates to see total price"
+            data-minimum-price-per-night-first-label="From"
+            data-minimum-price-per-night-second-label="per night"
+            data-book-button-label="Book Now"
+            data-guests-breakdown-label="Guests"
+            data-adults-label='{"one":"adult","other":"adults"}'
+            data-adults-description="Ages {minAge} or above"
+            data-children-label='{"one":"child","other":"children"}'
+            data-children-description="Ages {minAge}-{maxAge}"
+            data-children-not-allowed-label="Not suitable for children"
+            data-infants-label='{"one":"infant","other":"infants"}'
+            data-infants-description="Under {maxAge}"
+            data-infants-not-allowed-label="Not suitable for infants"
+            data-pets-label='{"one":"pet","other":"pets"}'
+            data-pets-not-allowed-label="Not allowed"
+            data-done-label="Done"
+          ></div>
+          <script src="https://app.lodgify.com/book-now-box/stable/renderBookNowBox.js" defer></script>
         </div>
       </div>
     </div>

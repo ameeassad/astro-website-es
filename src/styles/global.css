@@ -190,18 +190,10 @@ nav.scrolled .lang-sep { color: var(--light); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    #2c3a28 0%,
-    #4a5a3a 15%,
-    #7a6540 35%,
-    #c4925a 55%,
-    #d4a870 65%,
-    #8a6a48 80%,
-    #3a4830 100%
-  );
-  background-size: 300% 300%;
-  animation: heroShift 18s ease infinite;
+  background-color: #3a4830;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 /* video hero — drop real drone footage here */
 .hero-video {
@@ -405,7 +397,7 @@ h2.section-title em { font-style: italic; }
   align-items: center;
   margin-top: 60px;
 }
-.about-img-main { width: 100%; aspect-ratio: 4/5; }
+.about-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
 .about-img-accent {
   position: absolute;
   width: 48%;
@@ -413,6 +405,8 @@ h2.section-title em { font-style: italic; }
   bottom: -40px;
   left: -40px;
   border: 6px solid var(--bg);
+  object-fit: cover;
+  display: block;
 }
 .img-col { position: relative; }
 .pine-divider {
@@ -437,7 +431,7 @@ h2.section-title em { font-style: italic; }
   cursor: pointer;
 }
 .space-card:first-child { grid-column: span 2; }
-.space-img { width: 100%; aspect-ratio: 4/3; transition: transform 0.5s ease; }
+.space-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.5s ease; }
 .space-card:first-child .space-img { aspect-ratio: 16/9; }
 .space-card:hover .space-img { transform: scale(1.04); }
 .space-overlay {
