@@ -64,7 +64,7 @@ const { t, lang } = Astro.props;
             data-rental-id="796184"
             data-website-id="650777"
             data-slug="elina-koujeleva"
-            data-language-code="en"
+            data-language-code={lang}
             data-new-tab="true"
             data-version="stable"
             data-hide-minimum-price
@@ -93,7 +93,7 @@ const { t, lang } = Astro.props;
             data-pets-not-allowed-label="Not allowed"
             data-done-label="Done"
           ></div>
-          <script src="https://app.lodgify.com/book-now-box/stable/renderBookNowBox.js" defer></script>
+          <script is:inline src="https://app.lodgify.com/book-now-box/stable/renderBookNowBox.js" defer></script>
         </div>
       </div>
     </div>
