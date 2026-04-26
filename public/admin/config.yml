@@ -1,106 +1,127 @@
-# Decap CMS Configuration for Finca Matriz
-#
-# SETUP INSTRUCTIONS:
-# 1. Push your project to a GitHub repository
-# 2. Create a GitHub OAuth App:
-#    - GitHub Settings → Developer Settings → OAuth Apps → New OAuth App
-#    - Homepage URL: https://yourdomain.com
-#    - Authorization callback URL: https://api.netlify.com/auth/done
-#    (or use Netlify Identity if hosting on Netlify — no OAuth app needed)
-# 3. Update `repo` below to your GitHub username/repo
-# 4. Update `site_url` and `display_url` to your domain
-#
-# ALTERNATIVE: If self-hosting with Gitea, change backend to:
-#   name: gitea
-#   repo: your-username/finca-matriz
-#   base_url: https://your-gitea-instance.com
-
 backend:
-  name: github
-  repo: ameeassad/astro-website-es
+  name: git-gateway
   branch: main
 
-# Media uploads go into public/images
-media_folder: public/images
-public_folder: /images
+media_folder: public/uploads
+public_folder: /uploads
 
-site_url: https://fincamatriz.com     # TODO: add  alias https://fincamatriz.es
+site_url: https://fincamatriz.com
 display_url: https://fincamatriz.com
-
-# Locale
 locale: en
 
 collections:
-  # ── Site settings (general info that appears across pages) ──────────────
+
+  # ── Photos ──────────────────────────────────────────────────────────────────
+  - name: spaces_photos
+    label: Space Photos
+    label_singular: Space
+    folder: src/content/spaces
+    create: true
+    slug: '{{order}}-{{slug}}'
+    summary: '{{name_en}}'
+    fields:
+      - { label: 'Name (EN)', name: name_en, widget: string }
+      - { label: 'Name (ES)', name: name_es, widget: string }
+      - { label: 'Name (CA)', name: name_ca, widget: string }
+      - { label: 'Description (EN)', name: desc_en, widget: string }
+      - { label: 'Description (ES)', name: desc_es, widget: string }
+      - { label: 'Description (CA)', name: desc_ca, widget: string }
+      - label: Photos
+        name: photos
+        widget: list
+        field: { label: Photo, name: photo, widget: image }
+      - { label: Sort order, name: order, widget: number, default: 0 }
+      - { label: 'Large card (spans 2 columns)', name: featured, widget: boolean, default: false }
+
+  # ── Rates ────────────────────────────────────────────────────────────────────
   - name: settings
     label: Site Settings
     files:
-      - name: general
-        label: General
-        file: src/content/settings/general.json
+      - name: rates
+        label: Rates & Pricing
+        file: src/content/settings/rates.json
         fields:
-          - { label: Phone, name: phone, widget: string, default: '+34 000 000 000' }
-          - { label: WhatsApp Number (digits only), name: whatsapp, widget: string, default: '34000000000' }
-          - { label: Email, name: email, widget: string, default: 'fincamatriz.es@gmail.com' }
-          - label: Rates
-            name: rates
+          - label: Rates (EN)
+            name: rates_en
             widget: list
             fields:
-              - { label: Label (EN), name: label_en, widget: string }
-              - { label: Value (EN), name: value_en, widget: string }
-              - { label: Label (ES), name: label_es, widget: string }
-              - { label: Value (ES), name: value_es, widget: string }
-              - { label: Label (CA), name: label_ca, widget: string }
-              - { label: Value (CA), name: value_ca, widget: string }
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: string }
+          - label: Rates (ES)
+            name: rates_es
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: string }
+          - label: Rates (CA)
+            name: rates_ca
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: string }
+          - { label: 'Minimum stay (nights)', name: min_stay, widget: number, default: 2 }
 
-  # ── Gallery images ──────────────────────────────────────────────────────
-  - name: gallery
-    label: Photo Gallery
-    folder: src/content/gallery
-    create: true
-    slug: '{{slug}}'
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Image, name: image, widget: image }
-      - { label: Alt text (EN), name: alt_en, widget: string }
-      - { label: Alt text (ES), name: alt_es, widget: string }
-      - { label: Alt text (CA), name: alt_ca, widget: string }
-      - label: Section
-        name: section
-        widget: select
-        options: [about, spaces, events, stay]
+      - name: contact
+        label: Contact Details
+        file: src/content/settings/contact.json
+        fields:
+          - { label: Email, name: email, widget: string }
+          - { label: Phone, name: phone, widget: string }
+          - { label: 'WhatsApp (digits only, e.g. 34612345678)', name: whatsapp, widget: string }
+          - { label: 'Address (EN)', name: address_en, widget: string }
+          - { label: 'Address (ES)', name: address_es, widget: string }
+          - { label: 'Address (CA)', name: address_ca, widget: string }
 
-  # ── FAQ entries ─────────────────────────────────────────────────────────
+  # ── FAQ ──────────────────────────────────────────────────────────────────────
   - name: faq
     label: FAQ
+    label_singular: Question
     folder: src/content/faq
     create: true
-    slug: '{{slug}}'
+    slug: '{{order}}-{{slug}}'
+    summary: '{{question_en}}'
     fields:
-      - { label: Question (EN), name: question_en, widget: string }
-      - { label: Answer (EN), name: answer_en, widget: text }
-      - { label: Question (ES), name: question_es, widget: string }
-      - { label: Answer (ES), name: answer_es, widget: text }
-      - { label: Question (CA), name: question_ca, widget: string }
-      - { label: Answer (CA), name: answer_ca, widget: text }
-      - { label: Sort Order, name: order, widget: number, default: 0 }
+      - { label: 'Question (EN)', name: question_en, widget: string }
+      - { label: 'Answer (EN)',   name: answer_en,   widget: text }
+      - { label: 'Question (ES)', name: question_es, widget: string }
+      - { label: 'Answer (ES)',   name: answer_es,   widget: text }
+      - { label: 'Question (CA)', name: question_ca, widget: string }
+      - { label: 'Answer (CA)',   name: answer_ca,   widget: text }
+      - { label: Sort order, name: order, widget: number, default: 0 }
 
-  # ── Spaces / Rooms ──────────────────────────────────────────────────────
-  - name: spaces
-    label: Spaces & Rooms
-    folder: src/content/spaces
-    create: true
-    slug: '{{slug}}'
-    fields:
-      - { label: Name (EN), name: name_en, widget: string }
-      - { label: Description (EN), name: desc_en, widget: string }
-      - { label: Name (ES), name: name_es, widget: string }
-      - { label: Description (ES), name: desc_es, widget: string }
-      - { label: Name (CA), name: name_ca, widget: string }
-      - { label: Description (CA), name: desc_ca, widget: string }
-      - { label: Photo, name: image, widget: image }
-      - { label: Sort Order, name: order, widget: number, default: 0 }
-      - label: Featured (large card)
-        name: featured
-        widget: boolean
-        default: false
+  # ── General text ─────────────────────────────────────────────────────────────
+  - name: copy
+    label: Page Text
+    files:
+      - name: en
+        label: English
+        file: src/content/copy/en.json
+        fields:
+          - { label: 'Hero subtitle', name: heroSub, widget: string }
+          - { label: 'About — main paragraph', name: aboutBody, widget: text }
+          - { label: 'About — details line', name: aboutBody2, widget: text }
+          - { label: 'Stay — main paragraph', name: stayBody, widget: text }
+          - { label: 'Stay — amenities line', name: stayBody2, widget: text }
+          - { label: 'Events subtitle', name: eventsSub, widget: text }
+
+      - name: es
+        label: Español
+        file: src/content/copy/es.json
+        fields:
+          - { label: 'Subtítulo hero', name: heroSub, widget: string }
+          - { label: 'Acerca de — párrafo principal', name: aboutBody, widget: text }
+          - { label: 'Acerca de — línea de detalles', name: aboutBody2, widget: text }
+          - { label: 'Estancia — párrafo principal', name: stayBody, widget: text }
+          - { label: 'Estancia — línea de servicios', name: stayBody2, widget: text }
+          - { label: 'Subtítulo eventos', name: eventsSub, widget: text }
+
+      - name: ca
+        label: Català
+        file: src/content/copy/ca.json
+        fields:
+          - { label: 'Subtítol hero', name: heroSub, widget: string }
+          - { label: 'Sobre la finca — paràgraf principal', name: aboutBody, widget: text }
+          - { label: 'Sobre la finca — línia de detalls', name: aboutBody2, widget: text }
+          - { label: 'Estada — paràgraf principal', name: stayBody, widget: text }
+          - { label: 'Estada — línia de serveis', name: stayBody2, widget: text }
+          - { label: 'Subtítol esdeveniments', name: eventsSub, widget: text }

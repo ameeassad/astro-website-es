@@ -1,0 +1,24 @@
+{
+  "rates_en": [
+    { "label": "Low season (Nov–Apr)", "value": "€ 2,000 / night" },
+    { "label": "High season (May–Oct)", "value": "€ 2,200 / night" },
+    { "label": "Minimum stay", "value": "2 nights" },
+    { "label": "Full-week rate", "value": "on request" },
+    { "label": "Buyout (events)", "value": "on request" }
+  ],
+  "rates_es": [
+    { "label": "Temporada baja (Nov–Abr)", "value": "€ 2.000 / noche" },
+    { "label": "Temporada alta (May–Oct)", "value": "€ 2.200 / noche" },
+    { "label": "Estancia mínima", "value": "2 noches" },
+    { "label": "Tarifa semanal", "value": "consultar" },
+    { "label": "Alquiler exclusivo (eventos)", "value": "consultar" }
+  ],
+  "rates_ca": [
+    { "label": "Temporada baixa (Nov–Abr)", "value": "€ 2.000 / nit" },
+    { "label": "Temporada alta (Mai–Oct)", "value": "€ 2.200 / nit" },
+    { "label": "Estada mínima", "value": "2 nits" },
+    { "label": "Tarifa setmanal", "value": "consultar" },
+    { "label": "Lloguer exclusiu (esdeveniments)", "value": "consultar" }
+  ],
+  "min_stay": 2
+}
