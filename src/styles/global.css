@@ -929,10 +929,8 @@ footer {
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   .form-row { grid-template-columns: 1fr; }
   footer { padding: 48px 24px 32px; }
-  .rates-table { display: block; }
-  .rates-table tbody { display: block; }
-  .rates-table tr { display: flex; flex-direction: column; padding: 12px 0; border-bottom: 1px solid var(--bg3); }
-  .rates-table tr:first-child { border-top: 1px solid var(--bg3); }
-  .rates-table td { border-bottom: none; padding: 2px 0; font-size: 13px; }
-  .rates-table td:last-child { text-align: left; font-size: 15px; }
+  .rates-table { table-layout: fixed; width: 100%; }
+  .rates-table td { font-size: 13px; word-break: break-word; white-space: normal; }
+  .rates-table td:first-child { width: 60%; }
+  .rates-table td:last-child { width: 40%; text-align: right; }
 }
