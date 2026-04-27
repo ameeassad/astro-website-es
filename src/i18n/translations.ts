@@ -19,7 +19,7 @@ export const T = {
     spaces: [
       { name: 'The Courtyard', desc: 'U-shaped house · pool at the centre · open sky' },
       { name: 'The Gardens', desc: 'Terraced and gravel paths · ancient Mediterranean landscape' },
-      { name: 'The Suites', desc: 'Seven master suites · all with private bathrooms and smart TVs' },
+      { name: 'The Suites', desc: 'Seven master suites · all with private bathrooms and smart TVs, and their own separate entrances' },
       { name: 'Tennis Court', desc: 'Full size · floodlit · mountain view' },
       { name: 'The Terrace', desc: 'Stone-paved · views of the private forest' },
     ],
