@@ -662,7 +662,7 @@ h2.section-title em { font-style: italic; }
   border-bottom: 1px solid var(--bg3);
 }
 .rates-table td:first-child { color: var(--mid); letter-spacing: 0.05em; }
-.rates-table td:last-child { text-align: right; font-weight: 500; color: var(--dark); }
+.rates-table td:last-child { text-align: right; font-weight: 500; color: var(--dark); white-space: nowrap; width: 1%; padding-left: 16px; }
 .booking-cta {
   background: var(--bg2);
   padding: 40px;
@@ -909,7 +909,13 @@ footer {
   .section { padding: 64px 0; }
   .strip { grid-template-columns: repeat(2, 1fr); }
   #about .layout { grid-template-columns: 1fr; gap: 40px; }
-  .about-img-accent { display: none; }
+  .about-img-accent {
+    position: static;
+    width: 100%;
+    aspect-ratio: 4/3;
+    margin-top: 8px;
+    border: none;
+  }
   .spaces-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .space-card:first-child { grid-column: span 1; }
   .space-slides { height: 0; padding-bottom: 66%; }
