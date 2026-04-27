@@ -922,6 +922,9 @@ footer {
   .space-card:first-child .space-slides { padding-bottom: 66%; }
   .events-grid { grid-template-columns: 1fr; }
   .stay-layout { grid-template-columns: 1fr; gap: 40px; }
+  .booking-cta { padding: 24px; }
+  .lodgify-widget-wrap { padding: 24px; }
+  .rates-table td:last-child { white-space: normal; width: auto; padding-right: 0; }
   .contact-layout { grid-template-columns: 1fr; gap: 40px; }
   .footer-top { grid-template-columns: 1fr; text-align: center; }
   .footer-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
