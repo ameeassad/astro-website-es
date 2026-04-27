@@ -929,4 +929,6 @@ footer {
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   .form-row { grid-template-columns: 1fr; }
   footer { padding: 48px 24px 32px; }
+  .rates-table td { font-size: 13px; word-break: break-word; }
+  .rates-table td:last-child { text-align: left; }
 }
