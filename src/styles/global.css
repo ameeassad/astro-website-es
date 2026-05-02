@@ -419,6 +419,12 @@ h2.section-title em { font-style: italic; }
 
 /* ── Spaces ── */
 #spaces { background: var(--bg2); }
+.spaces-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
 .spaces-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -916,6 +922,7 @@ footer {
     margin-top: 8px;
     border: none;
   }
+  .spaces-header { grid-template-columns: 1fr; gap: 32px; }
   .spaces-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .space-card:first-child { grid-column: span 1; }
   .space-slides { height: 0; padding-bottom: 66%; }

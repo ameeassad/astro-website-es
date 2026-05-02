@@ -17,6 +17,7 @@ export const T = {
     spacesLabel: 'Spaces & Rooms',
     mapLabel: 'The Estate · Illustrated',
     spacesTitle: ['Every corner, ', 'considered'],
+    spacesBody: 'From the sun-drenched courtyard to the ancient pine groves — every corner of the estate has been shaped with intention.',
     spaces: [
       { name: 'The Courtyard', desc: 'U-shaped house · pool at the centre · open sky' },
       { name: 'The Gardens', desc: 'Terraced and gravel paths · ancient Mediterranean landscape' },
@@ -105,6 +106,7 @@ export const T = {
     spacesLabel: 'Espacios y Habitaciones',
     mapLabel: 'La Finca · Ilustrada',
     spacesTitle: ['Cada rincón, ', 'con cuidado'],
+    spacesBody: 'Desde el soleado patio hasta los pinares centenarios — cada rincón de la finca ha sido cuidado con intención.',
     spaces: [
       { name: 'El Patio', desc: 'Casa en U · piscina central · cielo abierto' },
       { name: 'Los Jardines', desc: 'En terrazas · paisaje mediterráneo antiguo' },
@@ -189,6 +191,7 @@ export const T = {
     spacesLabel: 'Espais i Habitacions',
     mapLabel: "La Finca · Il·lustrada",
     spacesTitle: ['Cada racó, ', 'amb cura'],
+    spacesBody: 'Des del pati assolellat fins als pinars centenaris — cada racó de la finca ha estat creat amb intenció.',
     spaces: [
       { name: 'El Pati', desc: 'Casa en U · piscina central · cel obert' },
       { name: 'Els Jardins', desc: 'En terrasses · paisatge mediterrani antic' },
