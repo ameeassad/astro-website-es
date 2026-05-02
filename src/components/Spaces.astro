@@ -9,10 +9,10 @@ const { t } = Astro.props;
 
 const spaceSlides: string[][] = [
   ['/uploads/courtyard-night.png', '/uploads/courtyard-aerial.png', '/uploads/pool-day.png', '/uploads/courtyard-dining.png'],
-  ['/uploads/garden-day.png', '/uploads/yoga.png', '/uploads/south-garden.png', '/uploads/montgo-pines.png'],
+  ['/uploads/garden-day.png', '/uploads/montgo-pines.png'],
   ['/uploads/room1a.png', '/uploads/bathroom1a.png', '/uploads/room-pine.png', '/uploads/bathroom-pine.png', '/uploads/room1b.png', '/uploads/room1c.png', '/uploads/room-living-1c.png', '/uploads/roomup.png'],
   ['/uploads/tennis.png'],
-  ['/uploads/terrace.png'],
+  ['/uploads/terrace.png', '/uploads/yoga.png', '/uploads/south-garden.png'],
 ];
 ---
 
@@ -56,6 +56,17 @@ const spaceSlides: string[][] = [
           </div>
         </div>
       ))}
+    </div>
+  </div>
+
+  <div class="section-inner">
+    <div id="map-wrap" style="margin-top:56px;opacity:0;transform:translateY(32px);transition:opacity 0.9s ease,transform 1s ease;display:flex;flex-direction:column;align-items:center;">
+      <p class="section-label" style="margin-bottom:24px;align-self:flex-start">{t.mapLabel}</p>
+      <div style="perspective:1400px;width:100%;max-width:820px">
+        <div id="map-tilt" style="transition:transform 0.5s cubic-bezier(0.23,1,0.32,1);will-change:transform;line-height:0;cursor:default">
+          <img src="/uploads/map.png" alt="Illustrated aerial map of Finca Matriz" style="width:100%;display:block" loading="lazy" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -173,4 +184,34 @@ const spaceSlides: string[][] = [
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 40) dx < 0 ? lbGoTo(lbIdx + 1) : lbGoTo(lbIdx - 1);
   });
+
+  // ── Map illustration: scroll reveal + tilt ──
+  const mapWrap = document.getElementById('map-wrap') as HTMLElement | null;
+  const mapTilt = document.getElementById('map-tilt') as HTMLElement | null;
+
+  if (mapWrap && mapTilt) {
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        mapWrap.style.opacity = '1';
+        mapWrap.style.transform = 'translateY(0)';
+        obs.disconnect();
+      }
+    }, { threshold: 0.12 });
+    obs.observe(mapWrap);
+
+    let rafId: number | null = null;
+    mapWrap.addEventListener('mousemove', (e: MouseEvent) => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = mapWrap.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+        mapTilt.style.transform = `rotateY(${nx * 5}deg) rotateX(${ny * -3}deg)`;
+      });
+    });
+    mapWrap.addEventListener('mouseleave', () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      mapTilt.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  }
 </script>
