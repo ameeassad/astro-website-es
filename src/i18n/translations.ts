@@ -17,7 +17,7 @@ export const T = {
     spacesLabel: 'Spaces & Rooms',
     mapLabel: 'The Estate · Illustrated',
     spacesTitle: ['Every corner, ', 'considered'],
-    spacesBody: 'From the sun-drenched courtyard to the ancient pine groves — every corner of the estate has been shaped with intention.',
+    spacesBody: 'The residences feature soft stone underfoot, pine overhead, and a pool at the heart of it all. The spacey and wild west wing can be reserved specially for events.',
     spaces: [
       { name: 'The Courtyard', desc: 'U-shaped house · pool at the centre · open sky' },
       { name: 'The Gardens', desc: 'Terraced and gravel paths · ancient Mediterranean landscape' },
