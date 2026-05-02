@@ -40,7 +40,7 @@ function PineSmallSvg({ color = 'currentColor' }: { color?: string }) {
 }
 
 const anchors = ['about', 'spaces', 'events', 'stay', 'faq', 'contact'];
-const langs: Lang[] = ['en', 'es', 'ca'];
+const langs: Lang[] = ['en', 'es', 'ca', 'nl', 'fr'];
 
 export default function Nav({ lang, t }: Props) {
   const [scrolled, setScrolled] = useState(false);
