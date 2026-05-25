@@ -13,7 +13,7 @@ export const T = {
     aboutLabel: 'The Property',
     aboutTitle: ['Luxury in a sanctuary apart, ', 'rooted in history'],
     aboutBody: 'Finca Matriz sits at the base of the Montgó National Park in Jávea, on a preserved private land with ancient pines, far from the noise. The estate has been restored in 2025 and continues to honour its Valencian heritage while welcoming guests and gatherings of all kinds.',
-    aboutBody2: 'The property spans over a full hectare of Mediterranean forest, terraces overlooking the gardens, and a private pine forest — all framed by the warm stone of the original farmhouse. It is only 2km from the historical center of Jávea, and 8 minutes from the beaches.',
+    aboutBody2: 'The property, framed by the warm stone of the original farmhouse, spans over a full hectare of Mediterranean forest, with terraces overlooking the Montgó mountain amidst private gardens. It is only 2km from the historical center of Jávea, and 8 minutes from the beaches by car.',
     spacesLabel: 'Spaces & Rooms',
     mapLabel: 'The Estate · Illustrated',
     spacesTitle: ['Every corner, ', 'considered'],
