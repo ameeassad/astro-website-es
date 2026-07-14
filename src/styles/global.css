@@ -955,7 +955,7 @@ footer {
     border: none;
   }
   .spaces-header { grid-template-columns: 1fr; gap: 32px; }
-  .spaces-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+  .spaces-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: auto; }
   .space-card:first-child { grid-column: span 1; }
   .space-slides { height: 0; padding-bottom: 66%; }
   .space-card:first-child .space-slides { padding-bottom: 66%; }
