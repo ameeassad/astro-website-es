@@ -34,7 +34,7 @@ export default function ContactForm({ t }: Props) {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch('/', {
+      const res = await fetch(window.location.pathname, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({ 'form-name': 'contact', 'bot-field': '', ...form }),
