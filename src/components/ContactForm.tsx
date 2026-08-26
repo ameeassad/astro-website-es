@@ -5,10 +5,6 @@ interface Props {
   t: Translations;
 }
 
-// Replace with your Formspree form ID: https://formspree.io
-// Create a free account, add a form, get the endpoint like: https://formspree.io/f/xyzabcde
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-
 function PineSmallSvg({ color = 'currentColor', height = 72 }: { color?: string; height?: number }) {
   const w = height * 0.45;
   return (
@@ -21,10 +17,14 @@ function PineSmallSvg({ color = 'currentColor', height = 72 }: { color?: string;
   );
 }
 
+const encode = (data: Record<string, string>) =>
+  Object.keys(data)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+    .join('&');
+
 export default function ContactForm({ t }: Props) {
   const f = t.form;
-  const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [form, setForm] = useState({ name: '', email: '', phone: '', date: '', type: '', guests: '', msg: '' });
 
   const handle = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -32,27 +32,22 @@ export default function ContactForm({ t }: Props) {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
+    setStatus('sending');
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(form),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'contact', 'bot-field': '', ...form }),
       });
-      if (res.ok) {
-        setSent(true);
-      }
+      setStatus(res.ok ? 'sent' : 'error');
     } catch {
-      // fallback: mark as sent anyway (form was submitted)
-    } finally {
-      setSending(false);
-      setSent(true);
+      setStatus('error');
     }
   };
 
   return (
     <div className="contact-form reveal" style={{ transitionDelay: '0.2s' }}>
-      {sent ? (
+      {status === 'sent' ? (
         <div className="form-success">
           <div style={{ marginBottom: '20px' }}>
             <PineSmallSvg height={72} color="var(--sage)" />
@@ -61,47 +56,56 @@ export default function ContactForm({ t }: Props) {
           <p>{f.successSub}</p>
         </div>
       ) : (
-        <form onSubmit={submit}>
+        <form onSubmit={submit} name="contact" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
           <div className="form-row">
             <div className="form-group">
               <label>{f.name}</label>
-              <input type="text" value={form.name} onChange={handle('name')} required />
+              <input type="text" name="name" value={form.name} onChange={handle('name')} required />
             </div>
             <div className="form-group">
               <label>{f.email}</label>
-              <input type="email" value={form.email} onChange={handle('email')} required />
+              <input type="email" name="email" value={form.email} onChange={handle('email')} required />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
               <label>{f.phone}</label>
-              <input type="tel" value={form.phone} onChange={handle('phone')} />
+              <input type="tel" name="phone" value={form.phone} onChange={handle('phone')} />
             </div>
             <div className="form-group">
               <label>{f.date}</label>
-              <input type="date" value={form.date} onChange={handle('date')} />
+              <input type="date" name="date" value={form.date} onChange={handle('date')} />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
               <label>{f.type}</label>
-              <select value={form.type} onChange={handle('type')} required>
+              <select name="type" value={form.type} onChange={handle('type')} required>
                 <option value="">—</option>
                 {f.typeOpts.map((o, i) => <option key={i}>{o}</option>)}
               </select>
             </div>
             <div className="form-group">
               <label>{f.guests}</label>
-              <input type="number" min="1" value={form.guests} onChange={handle('guests')} />
+              <input type="number" name="guests" min="1" value={form.guests} onChange={handle('guests')} />
             </div>
           </div>
           <div className="form-group">
             <label>{f.msg}</label>
-            <textarea value={form.msg} onChange={handle('msg')} required />
+            <textarea name="msg" value={form.msg} onChange={handle('msg')} required />
           </div>
-          <button type="submit" className="btn-accent" disabled={sending}
+          {status === 'error' && (
+            <div style={{ marginBottom: '16px', padding: '12px 16px', background: 'rgba(180, 60, 60, 0.08)', border: '1px solid rgba(180, 60, 60, 0.3)', borderRadius: '4px', fontSize: '13px', color: '#8a3a3a' }}>
+              <strong>{f.error}</strong> {f.errorSub}
+            </div>
+          )}
+          <button type="submit" className="btn-accent" disabled={status === 'sending'}
             style={{ width: '100%', padding: '15px', fontSize: '12px' }}>
-            {sending ? f.sending : f.send}
+            {status === 'sending' ? f.sending : f.send}
           </button>
         </form>
       )}

@@ -17,6 +17,17 @@ const { t } = Astro.props;
       {t.contactTitle[0]}<em>{t.contactTitle[1]}</em>
     </h2>
 
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="date" name="date" />
+      <input type="text" name="type" />
+      <input type="number" name="guests" />
+      <textarea name="msg"></textarea>
+    </form>
+
     <div class="contact-layout">
       <!-- Interactive contact form (React island) -->
       <ContactForm t={t} client:visible />
